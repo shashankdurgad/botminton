@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "badminton_rl"
+version = "0.1.0"
+description = "Isaac Lab RL environments: Kuka iiwa + Allegro hand playing badminton."
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+[project.entry-points."isaaclab.tasks"]
+badminton_rl = "badminton_rl.tasks"
+
+[tool.setuptools.packages.find]
+include = ["badminton_rl*"]
+
+[tool.setuptools.package-data]
+badminton_rl = ["assets/*.usda"]

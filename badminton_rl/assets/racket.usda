@@ -1,0 +1,57 @@
+#usda 1.0
+(
+    defaultPrim = "Racket"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+# Simplified badminton racket as one rigid body.
+# Frame: origin at the grip centre, +Z runs from the butt towards the head,
+# the string bed faces +/-Y. Overall length 0.6 m, mass 90 g, balance point
+# about 0.29 m from the butt (z = 0.19).
+def Xform "Racket" (
+    prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+)
+{
+    float physics:mass = 0.09
+    point3f physics:centerOfMass = (0, 0, 0.19)
+    float3 physics:diagonalInertia = (0.0034, 0.0034, 0.0001)
+
+    def Cylinder "handle" (
+        prepend apiSchemas = ["PhysicsCollisionAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        double height = 0.2
+        double radius = 0.0175
+        float3[] extent = [(-0.0175, -0.0175, -0.1), (0.0175, 0.0175, 0.1)]
+        color3f[] primvars:displayColor = [(0.08, 0.08, 0.08)]
+    }
+
+    def Cylinder "shaft" (
+        prepend apiSchemas = ["PhysicsCollisionAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        double height = 0.25
+        double radius = 0.005
+        float3[] extent = [(-0.005, -0.005, -0.125), (0.005, 0.005, 0.125)]
+        color3f[] primvars:displayColor = [(0.6, 0.6, 0.65)]
+        double3 xformOp:translate = (0, 0, 0.225)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    # String bed. The collider is 3 cm thick (a real head is ~1 cm) so a fast
+    # shuttle cannot tunnel through it between 240 Hz physics steps.
+    def Cube "head" (
+        prepend apiSchemas = ["PhysicsCollisionAPI"]
+    )
+    {
+        double size = 1
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        color3f[] primvars:displayColor = [(0.85, 0.2, 0.15)]
+        double3 xformOp:translate = (0, 0, 0.475)
+        float3 xformOp:scale = (0.2, 0.03, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+}
