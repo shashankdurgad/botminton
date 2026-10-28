@@ -1,4 +1,4 @@
-# badminton_rl
+# Botminton
 
 A Kuka iiwa 7 arm with an Allegro hand, on an omnidirectional wheeled base, learns to play badminton with
 reinforcement learning in [Isaac Lab](https://github.com/isaac-sim/IsaacLab) (Isaac Sim 6.2, PhysX, rsl_rl PPO).
@@ -7,6 +7,8 @@ The hand holds a free racket by friction alone (no weld), and the shuttle flies 
 ![Path-traced replay of a trained policy](docs/showcase.png)
 
 ## What's here
+
+The code is an Isaac Lab extension, installed as the Python package `badminton_rl`.
 
 ```
 badminton_rl/            Isaac Lab extension (registers the gym tasks)
